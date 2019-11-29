@@ -1,0 +1,4 @@
+D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\bin\Release\PSI10-iNETE.dll
+D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\bin\Release\PSI10-iNETE.pdb
+D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\obj\Release\PSI10-iNETE.dll
+D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\obj\Release\PSI10-iNETE.pdb
