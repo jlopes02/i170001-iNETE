@@ -11,13 +11,13 @@ namespace PSI10_iNETE
 
         private string titulo, artista;
         private genero genero;
-        private double duracao;
+        private int duracao;
 
         public Musica(string _titulo, string _artista, int s, genero _genero)
         {
             Titulo = _titulo;
             Artista = _artista;
-            duracao = s;
+            Duracao = s;
             genero = _genero;
         }
 
@@ -41,27 +41,17 @@ namespace PSI10_iNETE
             get { return artista; }
         }
         
-        public genero Genero
-        {
-            set { genero = value; }
-            get { return genero; }             
-        }
-       
-        public double _Duracao
+        public genero Genero { set; get; }
+           
+        public int Duracao
         {
             set
             {
                 if (value <= 0)
                     throw new Exception("Duracao invalida");
-                duracao = value / 60;
+                duracao = value;
             }
             get { return duracao; }
-        }
-
-      
-        public int Duracao()
-        {
-            return Convert.ToInt32(_Duracao * 60);
         }
 
     }

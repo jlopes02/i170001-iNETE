@@ -8,10 +8,16 @@ namespace PSI10_iNETE
 {
     public enum genero
     {
-        Pop,
+        Desconhecida,
         Rock,
-        Jazz,
+        Pop,
+        Classica,
+        Alternativa,
+        Electronica,
+        World,
+        Latina,
         Country,
-        Rapp,
+        Jazz,
+        Rap,
     }
 }

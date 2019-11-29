@@ -43,7 +43,9 @@
     <Compile Include="Genero.cs" />
     <Compile Include="Musica.cs" />
     <Compile Include="iNETE.cs" />
+    <Compile Include="MusicCollection.cs" />
     <Compile Include="Playlist.cs" />
+    <Compile Include="PlaylistCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
