@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace PSI10_iNETE
 {
-    class MusicCollection : CollectionBase
+    public class MusicCollection : CollectionBase
     {
         public void AddMusica (Musica musica)
         {

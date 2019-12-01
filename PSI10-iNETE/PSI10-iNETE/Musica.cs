@@ -18,7 +18,7 @@ namespace PSI10_iNETE
             Titulo = _titulo;
             Artista = _artista;
             Duracao = s;
-            genero = _genero;
+            Genero = _genero;
         }
 
         public string Titulo

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using System.Collections;
 namespace PSI10_iNETE
 {
-    class PlaylistCollection : CollectionBase
+    public class PlaylistCollection : CollectionBase
     {
         public void AddPlaylist(Playlist playlist)
         {
-            List.Add(playlist);
+            List.Add(playlist); 
         }
 
-        public void RemovePlaylist(Playlist Playlist)
+        public void RemovePlaylist(Playlist playlist)
         {
-            List.Remove(Playlist);
+            List.Remove(playlist);
         }
 
         public void RemovePlaylistAt(int idx)

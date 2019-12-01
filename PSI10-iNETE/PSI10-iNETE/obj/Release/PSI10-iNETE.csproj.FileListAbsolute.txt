@@ -2,3 +2,8 @@ D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\bin\Release\PSI10-iNETE.dll
 D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\bin\Release\PSI10-iNETE.pdb
 D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\obj\Release\PSI10-iNETE.dll
 D:\12ºano\PSI\PSI10-iNETE\PSI10-iNETE\obj\Release\PSI10-iNETE.pdb
+C:\Users\Jorgina~\source\repos\i170001-iNETE\PSI10-iNETE\PSI10-iNETE\bin\Release\PSI10-iNETE.dll
+C:\Users\Jorgina~\source\repos\i170001-iNETE\PSI10-iNETE\PSI10-iNETE\bin\Release\PSI10-iNETE.pdb
+C:\Users\Jorgina~\source\repos\i170001-iNETE\PSI10-iNETE\PSI10-iNETE\obj\Release\PSI10-iNETE.csproj.CoreCompileInputs.cache
+C:\Users\Jorgina~\source\repos\i170001-iNETE\PSI10-iNETE\PSI10-iNETE\obj\Release\PSI10-iNETE.dll
+C:\Users\Jorgina~\source\repos\i170001-iNETE\PSI10-iNETE\PSI10-iNETE\obj\Release\PSI10-iNETE.pdb

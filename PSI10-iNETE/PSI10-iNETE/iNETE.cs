@@ -4,23 +4,11 @@ namespace PSI10_iNETE
 {
     public class iNETE
     {
-        private PlaylistCollection playlists;
-
+        public PlaylistCollection playlists;
         
-
-        public Playlist[] PlaylistsDuracaoMinima(int duracaoMinima)
+        public iNETE()
         {
-            Playlist[] _playlists = new Playlist[qtdPlaylists];
-            int cnt = 0;
-            foreach (Playlist playlist in playlists)
-            {
-                if (playlist.DuracaoTotal() >= duracaoMinima)
-                {
-                    _playlists[cnt] = playlist;
-                    cnt++;
-                }
-            }
-            return _playlists;
+            playlists = new PlaylistCollection();
         }
     }
 }
