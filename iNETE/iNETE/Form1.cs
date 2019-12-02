@@ -24,7 +24,7 @@ namespace iNETEapp
             {
                 int id = Convert.ToInt32(_playlist.Attributes[0].Value);
                 string n = _playlist.Attributes[1].Value;
-                Playlist playlist = new Playlist(n,id);
+                Playlist playlist = new Playlist(n,id, DateTime.Today);
 
                 //percorrer musicas
                 foreach (XmlNode _musica in _playlist)
@@ -129,14 +129,31 @@ namespace iNETEapp
 
         private void BtnNewPlaylist_Click(object sender, EventArgs e)
         {
-            FormAddPlaylist formPlaylist = new FormAddPlaylist(iNETE);
-            DialogResult a = formPlaylist.ShowDialog();
-            if (a == DialogResult.OK);
+            FormAddPlaylist formPlaylist = new FormAddPlaylist(iNETE,null);
+            
+            if (formPlaylist.ShowDialog() == DialogResult.OK)
             {
                 iNETE.playlists.AddPlaylist(formPlaylist.Playlist);
             }
             
             
+        }
+
+        private void btnEditPlaylist_Click(object sender, EventArgs e)
+        {
+            if (lsvPlaylists.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma playlist!", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                FormAddPlaylist formPlaylist = new FormAddPlaylist(iNETE, iNETE.playlists[lsvPlaylists.SelectedIndices[0]]);
+
+                if (formPlaylist.ShowDialog() == DialogResult.OK)
+                {
+                    iNETE.playlists.AddPlaylist(formPlaylist.Playlist);
+                }
+            }
         }
     }
 }

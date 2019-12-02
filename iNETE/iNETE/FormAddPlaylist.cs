@@ -14,10 +14,17 @@ namespace iNETEapp
     {
         iNETE inete;
         public Playlist Playlist { get; set; }
-        public FormAddPlaylist(iNETE iNETE)
+        public FormAddPlaylist(iNETE iNETE, Playlist playlist)
         {
             InitializeComponent();
              inete = iNETE;
+            if (playlist!= null)
+            {
+                txtCode.Text = playlist.IdPlaylist.ToString();
+                txtCode.ReadOnly = true;
+                txtNome.Text = playlist.Nome;
+                dtDataCriacao.Value = playlist.DataCriacao;
+            }
         }
 
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -47,7 +54,7 @@ namespace iNETEapp
             else
             {
                 this.DialogResult = DialogResult.OK;
-                Playlist = new Playlist(txtNome.Text, Convert.ToInt32(txtCode.Text));
+                Playlist = new Playlist(txtNome.Text, Convert.ToInt32(txtCode.Text), dtDataCriacao.Value);
 
             }
         }
@@ -58,6 +65,18 @@ namespace iNETEapp
             if (!Char.IsDigit(ch) && ch!=8)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void FormAddPlaylist_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult r;
+            if (this.DialogResult != DialogResult.OK)
+            {
+                r = MessageBox.Show("Quer mesmo fechar o form?", "Adicionar playlist", MessageBoxButtons.OKCancel);
+
+                if (r != DialogResult.OK)
+                    e.Cancel = true;
             }
         }
     }

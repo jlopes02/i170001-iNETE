@@ -105,6 +105,7 @@
             this.btnEditPlaylist.TabIndex = 2;
             this.btnEditPlaylist.Text = "Alterar Playlist";
             this.btnEditPlaylist.UseVisualStyleBackColor = true;
+            this.btnEditPlaylist.Click += new System.EventHandler(this.btnEditPlaylist_Click);
             // 
             // btnNewPlaylist
             // 

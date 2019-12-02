@@ -111,6 +111,7 @@
             this.Controls.Add(this.txtCode);
             this.Name = "FormAddPlaylist";
             this.Text = "FormAddPlaylist";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormAddPlaylist_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

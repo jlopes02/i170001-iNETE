@@ -19,7 +19,7 @@ namespace PSI10_iNETE
             }
             get { return nome; }
         }
-        public string DataCriacao { get; set; }
+        public DateTime DataCriacao { get; set; }
         public int IdPlaylist
         {
             get
@@ -27,11 +27,11 @@ namespace PSI10_iNETE
                 return idPlaylist;
             }
         }
-        public Playlist(string n, int id)
+        public Playlist(string n, int id, DateTime dc)
         {
             Nome = n;
             idPlaylist = id;
-            dataCriacao = DateTime.Today;
+            DataCriacao = dc;
             musicas = new MusicCollection();
         }
             
