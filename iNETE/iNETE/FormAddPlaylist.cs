@@ -13,6 +13,7 @@ namespace iNETEapp
     public partial class FormAddPlaylist : Form
     {
         iNETE inete;
+        public Playlist Playlist { get; set; }
         public FormAddPlaylist(iNETE iNETE)
         {
             InitializeComponent();
@@ -39,9 +40,14 @@ namespace iNETEapp
 
 
             if (msg != "")
+            {
                 MessageBox.Show(msg, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult = DialogResult.None;
+            }
             else
             {
+                this.DialogResult = DialogResult.OK;
+                Playlist = new Playlist(txtNome.Text, Convert.ToInt32(txtCode.Text));
 
             }
         }

@@ -130,8 +130,12 @@ namespace iNETEapp
         private void BtnNewPlaylist_Click(object sender, EventArgs e)
         {
             FormAddPlaylist formPlaylist = new FormAddPlaylist(iNETE);
-
-            formPlaylist.ShowDialog();
+            DialogResult a = formPlaylist.ShowDialog();
+            if (a == DialogResult.OK);
+            {
+                iNETE.playlists.AddPlaylist(formPlaylist.Playlist);
+            }
+            
             
         }
     }

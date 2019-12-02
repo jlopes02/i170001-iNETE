@@ -20,7 +20,13 @@ namespace PSI10_iNETE
             get { return nome; }
         }
         public string DataCriacao { get; set; }
-        public int IdPlaylist { get; }
+        public int IdPlaylist
+        {
+            get
+            {
+                return idPlaylist;
+            }
+        }
         public Playlist(string n, int id)
         {
             Nome = n;
