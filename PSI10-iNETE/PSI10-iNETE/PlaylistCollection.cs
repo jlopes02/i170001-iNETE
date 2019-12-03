@@ -23,6 +23,18 @@ namespace PSI10_iNETE
             List.RemoveAt(idx);
         }
 
+        /// <summary>
+        /// Remove a playlist com o código especificado
+        /// </summary>
+        /// <param name="code"></param>
+        public void RemovePlaylist(int code)
+        {
+            for (int idx = 0; idx < this.Count; idx++)
+            {
+                if (this[idx].IdPlaylist == code)
+                    RemovePlaylistAt(idx);
+            }
+        }
         public int QtdPlaylists()
         {
             return List.Count;

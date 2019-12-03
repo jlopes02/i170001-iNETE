@@ -24,12 +24,14 @@ namespace iNETEapp
                 txtCode.ReadOnly = true;
                 txtNome.Text = playlist.Nome;
                 dtDataCriacao.Value = playlist.DataCriacao;
+                Playlist = playlist;
             }
         }
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             string msg = "";
+            if (Playlist==null)
             foreach (Playlist p in inete.playlists)
             {
                 if (txtCode.Text == p.IdPlaylist.ToString())
@@ -54,7 +56,13 @@ namespace iNETEapp
             else
             {
                 this.DialogResult = DialogResult.OK;
-                Playlist = new Playlist(txtNome.Text, Convert.ToInt32(txtCode.Text), dtDataCriacao.Value);
+                if (Playlist == null)
+                    Playlist = new Playlist(txtNome.Text, Convert.ToInt32(txtCode.Text), dtDataCriacao.Value);
+                else
+                {
+                    Playlist.Nome = txtNome.Text;
+                    Playlist.DataCriacao = dtDataCriacao.Value;
+                }
 
             }
         }

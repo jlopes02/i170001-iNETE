@@ -96,6 +96,7 @@
             this.btnDeletePlaylist.TabIndex = 3;
             this.btnDeletePlaylist.Text = "Apagar Playlist";
             this.btnDeletePlaylist.UseVisualStyleBackColor = true;
+            this.btnDeletePlaylist.Click += new System.EventHandler(this.btnDeletePlaylist_Click);
             // 
             // btnEditPlaylist
             // 
@@ -124,11 +125,13 @@
             this.chQtd});
             this.lsvPlaylists.HideSelection = false;
             this.lsvPlaylists.Location = new System.Drawing.Point(6, 6);
+            this.lsvPlaylists.MultiSelect = false;
             this.lsvPlaylists.Name = "lsvPlaylists";
             this.lsvPlaylists.Size = new System.Drawing.Size(580, 366);
             this.lsvPlaylists.TabIndex = 0;
             this.lsvPlaylists.UseCompatibleStateImageBehavior = false;
             this.lsvPlaylists.View = System.Windows.Forms.View.Details;
+            this.lsvPlaylists.SelectedIndexChanged += new System.EventHandler(this.lsvPlaylists_SelectedIndexChanged);
             // 
             // chName
             // 
