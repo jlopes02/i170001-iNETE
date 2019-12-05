@@ -28,7 +28,15 @@ namespace PSI10_iNETE
         {
             return InnerList.Contains(musica);
         }
-       
+        public Musica tituloToMusica (string artista, string titulo)
+        {
+            foreach (Musica m in this.InnerList)
+            {
+                if (m.Artista == artista && m.Titulo == titulo)
+                    return m;
+            }
+            return null;
+        }
         public int QtdMusicas()
         {
             return List.Count;

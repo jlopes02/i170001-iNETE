@@ -103,7 +103,6 @@ namespace iNETEapp
             ListViewItem lvi = new ListViewItem();
 
             lvi.Text = artista;
-
             ListViewItem.ListViewSubItem lvsi = new ListViewItem.ListViewSubItem();
 
             lvsi.Text = playlist;
@@ -132,7 +131,13 @@ namespace iNETEapp
             lsvPlaylists.Items[idx].Text = nome;
             lsvPlaylists.Items[idx].SubItems[1].Text = qtd;
         }
-
+        private void lsvEditMusica (int idx, string titulo, string genero, int duracao)
+        {
+            lsvMusicas.Items[idx].SubItems[2].Text = titulo;
+            lsvMusicas.Items[idx].SubItems[3].Text = genero;
+            int min = duracao / 60;
+            lsvMusicas.Items[idx].SubItems[4].Text = min.ToString() + ":" + (duracao - min * 60).ToString("00");
+        }
         private void BtnNewPlaylist_Click(object sender, EventArgs e)
         {
             FormAddPlaylist formPlaylist = new FormAddPlaylist(iNETE, null);
@@ -197,6 +202,89 @@ namespace iNETEapp
             }
         }
 
-      
+        private void btnNewMusica_Click(object sender, EventArgs e)
+        {
+            Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
+            FormAddMusica formNewMusica = new FormAddMusica(p, null);
+
+
+            if (formNewMusica.ShowDialog() == DialogResult.OK)
+            {
+                iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas.AddMusica(formNewMusica.Musica);
+                string a = formNewMusica.Musica.Artista;
+                string t = formNewMusica.Musica.Titulo;
+                genero g = formNewMusica.Musica.Genero;
+                int d = formNewMusica.Musica.Duracao;
+                lsvAddMusica(a, p.Nome, t, g, d);
+            }
+        }
+        private void btnEditMusica_Click(object sender, EventArgs e)
+        {
+            if (lsvPlaylists.SelectedItems.Count != 1)
+            {
+                MessageBox.Show("Selecione apenas uma musica", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
+                string a = lsvMusicas.SelectedItems[0].Text;
+                string t = lsvMusicas.SelectedItems[0].SubItems[2].Text;
+                FormAddMusica formNewMusica = new FormAddMusica(p, p.musicas.tituloToMusica(a, t));
+
+                if (formNewMusica.ShowDialog() == DialogResult.OK)
+                {
+                    iNETE.playlists[lsvPlaylists.SelectedIndices[0]].musicas[lsvMusicas.SelectedIndices[0]] = formNewMusica.Musica;
+                    lsvEditMusica(lsvMusicas.SelectedIndices[0], formNewMusica.Musica.Titulo, formNewMusica.Musica.Genero.ToString(), formNewMusica.Musica.Duracao);
+                }
+            }
+        }
+
+        private void btnDeleteMusica_Click(object sender, EventArgs e)
+        {
+            if (lsvPlaylists.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Nenhuma música selecionada", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DialogResult res = MessageBox.Show("Quer mesmo apagar a(s) musica(s) selecionada(s)?", "iNETE", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                if (res == DialogResult.Cancel)
+                    return;
+
+                for (int idx = lsvMusicas.SelectedIndices.Count; idx > 0; idx--)
+                {
+                    iNETE.playlists[lsvPlaylists.SelectedIndices[0]].musicas.RemoveMusicaAt(lsvMusicas.SelectedIndices[idx-1]);
+                    lsvMusicas.Items.RemoveAt(lsvMusicas.SelectedIndices[idx-1]);
+                }
+
+                
+            }
+        }
+
+        private void tsiMusicasArtista_Click(object sender, EventArgs e)
+        {
+            if (lsvMusicas.SelectedItems.Count != 0)
+            {
+                int cnt = 0;
+                string artista = lsvMusicas.SelectedItems[0].Text;
+                foreach (Playlist p in iNETE.playlists)
+                {
+                    cnt += p.musicas.QtdMusicasArtista(artista);
+                }
+
+                DialogResult res = MessageBox.Show("Musicas do artista " + artista + ": " + cnt.ToString() 
+                    + "\n\n Deseja criar uma playlist com todas as suas músicas?", "iNETE", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (res == DialogResult.Yes)
+                {
+
+                }
+            }
+        }
+
+        private void tsiDuracaoGenero_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

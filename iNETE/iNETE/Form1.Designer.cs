@@ -53,8 +53,8 @@
             this.playlistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.músicasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ferramentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aaaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.duraçãoPorGéneroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiMusicasArtista = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiDuracaoGenero = new System.Windows.Forms.ToolStripMenuItem();
             this.tbcControl.SuspendLayout();
             this.tpPlaylist.SuspendLayout();
             this.tpMusic.SuspendLayout();
@@ -164,6 +164,7 @@
             this.btnDeleteMusica.TabIndex = 6;
             this.btnDeleteMusica.Text = "Apagar Música";
             this.btnDeleteMusica.UseVisualStyleBackColor = true;
+            this.btnDeleteMusica.Click += new System.EventHandler(this.btnDeleteMusica_Click);
             // 
             // btnEditMusica
             // 
@@ -173,6 +174,7 @@
             this.btnEditMusica.TabIndex = 5;
             this.btnEditMusica.Text = "Alterar Música";
             this.btnEditMusica.UseVisualStyleBackColor = true;
+            this.btnEditMusica.Click += new System.EventHandler(this.btnEditMusica_Click);
             // 
             // btnNewMusica
             // 
@@ -182,6 +184,7 @@
             this.btnNewMusica.TabIndex = 4;
             this.btnNewMusica.Text = "Inserir Música";
             this.btnNewMusica.UseVisualStyleBackColor = true;
+            this.btnNewMusica.Click += new System.EventHandler(this.btnNewMusica_Click);
             // 
             // lsvMusicas
             // 
@@ -280,25 +283,27 @@
             // ferramentasToolStripMenuItem
             // 
             this.ferramentasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aaaToolStripMenuItem,
-            this.duraçãoPorGéneroToolStripMenuItem});
+            this.tsiMusicasArtista,
+            this.tsiDuracaoGenero});
             this.ferramentasToolStripMenuItem.Name = "ferramentasToolStripMenuItem";
             this.ferramentasToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.ferramentasToolStripMenuItem.Text = "Ferramentas";
             // 
-            // aaaToolStripMenuItem
+            // tsiMusicasArtista
             // 
-            this.aaaToolStripMenuItem.Name = "aaaToolStripMenuItem";
-            this.aaaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.aaaToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.aaaToolStripMenuItem.Text = "Músicas do Artista";
+            this.tsiMusicasArtista.Name = "tsiMusicasArtista";
+            this.tsiMusicasArtista.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.tsiMusicasArtista.Size = new System.Drawing.Size(221, 22);
+            this.tsiMusicasArtista.Text = "Músicas do Artista";
+            this.tsiMusicasArtista.Click += new System.EventHandler(this.tsiMusicasArtista_Click);
             // 
-            // duraçãoPorGéneroToolStripMenuItem
+            // tsiDuracaoGenero
             // 
-            this.duraçãoPorGéneroToolStripMenuItem.Name = "duraçãoPorGéneroToolStripMenuItem";
-            this.duraçãoPorGéneroToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.duraçãoPorGéneroToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.duraçãoPorGéneroToolStripMenuItem.Text = "Duração por género";
+            this.tsiDuracaoGenero.Name = "tsiDuracaoGenero";
+            this.tsiDuracaoGenero.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.tsiDuracaoGenero.Size = new System.Drawing.Size(221, 22);
+            this.tsiDuracaoGenero.Text = "Duração por género";
+            this.tsiDuracaoGenero.Click += new System.EventHandler(this.tsiDuracaoGenero_Click);
             // 
             // Form1
             // 
@@ -332,8 +337,8 @@
         private System.Windows.Forms.ToolStripMenuItem playlistToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem músicasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ferramentasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aaaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem duraçãoPorGéneroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsiMusicasArtista;
+        private System.Windows.Forms.ToolStripMenuItem tsiDuracaoGenero;
         private System.Windows.Forms.Button btnDeletePlaylist;
         private System.Windows.Forms.Button btnEditPlaylist;
         private System.Windows.Forms.Button btnNewPlaylist;

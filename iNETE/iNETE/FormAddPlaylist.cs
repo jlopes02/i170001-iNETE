@@ -51,7 +51,6 @@ namespace iNETEapp
             if (msg != "")
             {
                 MessageBox.Show(msg, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DialogResult = DialogResult.None;
             }
             else
             {
