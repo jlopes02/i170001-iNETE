@@ -6,7 +6,7 @@ namespace iNETEapp
 {
     public partial class Form1 : Form
     {
-        XmlDocument doc = new XmlDocument();
+       
         iNETE iNETE = new iNETE();
         public Form1()
         {
@@ -16,7 +16,7 @@ namespace iNETEapp
         {
 
             //carregar dados iniciais guardados no ficheiro xml (playlists e musicas)
-
+            XmlDocument doc = new XmlDocument();
             doc.Load("..\\..\\iNETE.xml");
 
             //percorrer playlists
@@ -24,7 +24,14 @@ namespace iNETEapp
             {
                 int id = Convert.ToInt32(_playlist.Attributes[0].Value);
                 string n = _playlist.Attributes[1].Value;
-                Playlist playlist = new Playlist(n, id, DateTime.Today);
+                int year, month;
+
+                month = Convert.ToInt32(_playlist.Attributes[2].Value.Substring(0, 2));
+                year = Convert.ToInt32(_playlist.Attributes[2].Value.Substring(3, 4));
+                var date = new DateTime(year,month, 1);
+                
+
+                Playlist playlist = new Playlist(n, id, date);
 
                 //percorrer musicas
                 foreach (XmlNode _musica in _playlist)
@@ -64,13 +71,20 @@ namespace iNETEapp
 
         private void FecharToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            DialogResult res = MessageBox.Show("Deseja guardar as alterações?","iNETE", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+            if (res == DialogResult.Yes) //guardar para o ficheiro
+                SaveToFile();
+
+            if (res != DialogResult.Cancel)
+                Close();
+
+            
         }
 
         private void GuardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            doc.Save("..\\..\\iNETE.xml");
+            SaveToFile();
         }
         /// <summary>
         /// Adiciona um item à listview das playlists
@@ -150,7 +164,6 @@ namespace iNETEapp
 
 
         }
-
         private void btnEditPlaylist_Click(object sender, EventArgs e)
         {
             if (lsvPlaylists.SelectedItems.Count == 0)
@@ -168,7 +181,6 @@ namespace iNETEapp
                 }
             }
         }
-
         private void btnDeletePlaylist_Click(object sender, EventArgs e)
         {
             if (lsvPlaylists.SelectedItems.Count == 0)
@@ -284,7 +296,83 @@ namespace iNETEapp
 
         private void tsiDuracaoGenero_Click(object sender, EventArgs e)
         {
+            int qtdgeneros = Enum.GetNames(typeof(genero)).Length;
+            int[] duracao = new int[qtdgeneros];
 
+            foreach (Playlist p in iNETE.playlists)
+            {
+                foreach (Musica m in p.musicas)
+                {
+                    duracao[(int)m.Genero] += m.Duracao;
+                }
+            }
+            string msg = "";
+            for (int idx = 0; idx < qtdgeneros; idx++)
+            {
+                if (duracao[idx]!= 0)
+                {
+                    int min = duracao[idx] / 60;
+                     
+                    msg += (genero)idx + "- " + min.ToString() + ":" + (duracao[idx] - min * 60).ToString("00") + "\n";
+                }
+            }
+
+            MessageBox.Show(msg, "Duracao por género", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void SaveToFile ()
+        {
+            XmlDocument doc = new XmlDocument();
+
+            XmlNode mainNode = doc.CreateElement("iNETE");
+            doc.AppendChild(mainNode);
+
+            XmlNode playlist, musica;    
+            foreach(Playlist p in iNETE.playlists) //criação das nodes das playlists
+            {
+                //atributos
+                playlist = doc.CreateElement("playlist");
+                XmlAttribute id = doc.CreateAttribute("id");
+                id.InnerXml = p.IdPlaylist.ToString();
+
+                XmlAttribute nome = doc.CreateAttribute("nome");
+                nome.InnerXml = p.Nome;
+
+                XmlAttribute data = doc.CreateAttribute("dataCriacao");
+                data.InnerXml = p.DataCriacao.Month.ToString("00") + '-' + p.DataCriacao.Year.ToString();
+
+                playlist.Attributes.Append(id);
+                playlist.Attributes.Append(nome);
+                playlist.Attributes.Append(data);
+
+                foreach (Musica m in p.musicas) // criação das nodes das músicas para cada playlilst
+                {
+                    musica = doc.CreateElement("musica");
+                    //atributos
+                    XmlAttribute artista = doc.CreateAttribute("artista");
+                    artista.InnerXml = m.Artista;
+
+                    XmlAttribute titulo = doc.CreateAttribute("titulo");
+                    titulo.InnerXml = m.Titulo;
+
+                    XmlAttribute genero = doc.CreateAttribute("genero");
+                    genero.InnerXml = m.Genero.ToString();
+
+                    XmlAttribute duracao = doc.CreateAttribute("duracao");
+                    duracao.InnerXml = m.Duracao.ToString();
+
+                    musica.Attributes.Append(artista);
+                    musica.Attributes.Append(titulo);
+                    musica.Attributes.Append(genero);
+                    musica.Attributes.Append(duracao);
+
+                    // adicionar node da musica à node da playlist
+                    playlist.AppendChild(musica);
+                }
+
+                mainNode.AppendChild(playlist);
+            }
+            doc.Save("..\\..\\iNETE.xml");
         }
     }
 }

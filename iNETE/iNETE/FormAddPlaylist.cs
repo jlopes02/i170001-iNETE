@@ -44,7 +44,7 @@ namespace iNETEapp
             if (string.IsNullOrWhiteSpace(txtNome.Text))
                 msg = "Nome inválido";
 
-            if (dtDataCriacao.Value > DateTime.Today)
+            if (dtDataCriacao.Value > DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59)) 
                 msg = "Data inválida";
 
 

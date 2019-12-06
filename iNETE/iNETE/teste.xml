@@ -15,10 +15,4 @@
     <musica artista="aaa" titulo="AAA" genero="Rock" duracao="98" />
     <musica artista="bbb" titulo="AAA" genero="Country" duracao="42" />
   </playlist>
-  <playlist id="6" nome="ola" dataCriacao="10-2019">
-    <musica artista="aa" titulo="134" genero="Desconhecida" duracao="14" />
-    <musica artista="bb" titulo="tertt" genero="Country" duracao="240" />
-    <musica artista="bb" titulo="wewq" genero="Latina" duracao="203" />
-    <musica artista="sss" titulo="erw" genero="Pop" duracao="167" />
-  </playlist>
 </iNETE>
