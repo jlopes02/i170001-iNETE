@@ -1,0 +1,22 @@
+<playlists>
+  <playlist id="1" nome="111" dataCriacao="11-2019">
+    <musica id= "1"/>
+    <musica id= "2" />
+    <musica id= "3" />
+  </playlist>
+  <playlist id="2" nome="222" dataCriacao="09-2019">
+    <musica id= "4"/>
+    <musica id= "5" />
+    <musica id= "6" />
+  </playlist>
+  <playlist id="3" nome="333" dataCriacao="10-2019">
+    <musica id= "7"/>
+    <musica id= "8" />
+    <musica id= "9" />
+  </playlist>
+  <playlist id="6" nome="ola" dataCriacao="10-2019">
+    <musica id= "10"/>
+    <musica id= "11" />
+    <musica id= "12" />
+  </playlist>
+</playlists>
