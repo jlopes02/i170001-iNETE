@@ -11,15 +11,14 @@ namespace PSI10_iNETE
 
         private string titulo, artista;
         private genero genero;
-        private int duracao, id;
+        private int duracao;
 
-        public Musica(int idMusica, string _titulo, string _artista, int s, genero _genero)
+        public Musica(string _titulo, string _artista, int s, genero _genero)
         {
             Titulo = _titulo;
             Artista = _artista;
             Duracao = s;
             Genero = _genero;
-            id = idMusica;
         }
 
         public string Titulo
@@ -55,7 +54,7 @@ namespace PSI10_iNETE
             get { return duracao; }
         }
 
-        public int Id { get; }
+        
     }
 
 }

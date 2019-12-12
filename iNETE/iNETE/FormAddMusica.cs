@@ -27,7 +27,7 @@ namespace iNETEapp
 
             Playlist = playlist;
             
-            this.Text = Playlist.Nome + " - Adicionar Playlist";
+            this.Text = Playlist.Nome + " - Adicionar Música";
             if (musica != null)
             {
                 Musica = musica;
@@ -36,7 +36,7 @@ namespace iNETEapp
                 txtTitulo.Text = Musica.Titulo;
                 cbbGenero.Text= Musica.Genero.ToString();
                 numDuracao.Value = Musica.Duracao;
-                this.Text = Playlist.Nome + " - Alterar Playlist";
+                this.Text = Playlist.Nome + " - Alterar Música";
             }
         }
 

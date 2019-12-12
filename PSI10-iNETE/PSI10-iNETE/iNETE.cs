@@ -9,6 +9,7 @@ namespace PSI10_iNETE
         public iNETE()
         {
             playlists = new PlaylistCollection();
+            musicas = new MusicCollection();
         }
     }
 }
