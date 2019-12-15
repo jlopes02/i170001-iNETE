@@ -15,7 +15,7 @@
     <musica idx="8" />
     <musica idx="9" />
   </playlist>
-  <playlist id="6" nome="ola" dataCriacao="10-2019">
+  <playlist id="6" nome="ola123" dataCriacao="10-2019">
     <musica idx="0" />
     <musica idx="10" />
     <musica idx="11" />
@@ -23,5 +23,4 @@
   <playlist id="45" nome="safda" dataCriacao="12-2019">
     <musica idx="1" />
   </playlist>
-  <playlist id="23" nome="dsf" dataCriacao="11-2019" />
 </playlists>

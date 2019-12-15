@@ -12,9 +12,9 @@ namespace iNETEapp
 {
     public partial class FormAddMusica : Form
     {
-        Playlist Playlist;
+        MusicCollection ColMusicas;
         public Musica Musica { get; set; }
-        public FormAddMusica(Playlist playlist, Musica musica)
+        public FormAddMusica(MusicCollection musicas, Musica musica)
         {
             InitializeComponent();
 
@@ -25,9 +25,9 @@ namespace iNETEapp
                 cbbGenero.Items.Add(((genero)idx).ToString());
             }
 
-            Playlist = playlist;
+            ColMusicas = musicas;
             
-            this.Text = Playlist.Nome + " - Adicionar Música";
+            this.Text = "Adicionar Música";
             if (musica != null)
             {
                 Musica = musica;
@@ -36,7 +36,7 @@ namespace iNETEapp
                 txtTitulo.Text = Musica.Titulo;
                 cbbGenero.Text= Musica.Genero.ToString();
                 numDuracao.Value = Musica.Duracao;
-                this.Text = Playlist.Nome + " - Alterar Música";
+                this.Text = "Alterar Música";
             }
         }
 
@@ -45,10 +45,10 @@ namespace iNETEapp
         {
             string msg = "";
             if (Musica==null)
-                foreach (Musica m in Playlist.musicas)
+                foreach (Musica m in ColMusicas)
                 {
-                    if (txtArtista.Text == m.Artista && txtTitulo.Text == m.Titulo)
-                        msg = "Par Artista-Musica repetido";
+                    if (txtArtista.Text == m.Artista && txtTitulo.Text == m.Titulo && numDuracao.Value == m.Duracao)
+                        msg = "Música repetida";
                 }
 
             if (string.IsNullOrWhiteSpace(txtArtista.Text))

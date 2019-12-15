@@ -71,7 +71,7 @@ namespace iNETEapp
             }
             foreach (Musica m in iNETE.musicas)
             {
-                lsvAddMusica(m.Artista, getPlaylists(m), m.Titulo, m.Genero, m.Duracao);
+                lsvAddMusica(m.Artista, getPlaylists(m, -1), m.Titulo, m.Genero, m.Duracao);
             }
         }
         /// <summary>
@@ -79,18 +79,20 @@ namespace iNETEapp
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        private string getPlaylists (Musica m)
+        private string getPlaylists(Musica m, int id)
         {
-            string playlists="";
+            string playlists = "";
             foreach (Playlist p in iNETE.playlists)
             {
-                if (p.musicas.ContainsMusica(m))
+                if (p.musicas.ContainsMusica(m) && p.IdPlaylist != id)
                 {
                     playlists += p.Nome + ',';
-                    break;
                 }
             }
-            return playlists.Substring(0, playlists.Length - 1);
+            if (playlists.Length != 0)
+                return playlists.Substring(0, playlists.Length - 1);
+
+            return playlists;
         }
         private void PlaylistToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -138,7 +140,7 @@ namespace iNETEapp
         /// <param name="titulo"></param>
         /// <param name="genero"></param>
         /// <param name="duracao"></param>
-        private void lsvAddMusica(string artista, string playlist, string titulo, genero genero, int duracao)
+		private void lsvAddMusica(string artista, string playlist, string titulo, genero genero, int duracao)
         {
             ListViewItem lvi = new ListViewItem();
 
@@ -237,48 +239,49 @@ namespace iNETEapp
                     if (p.IdPlaylist == Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag))
                         foreach (Musica m in p.musicas)
                         {
-                            lsvAddMusica(m.Artista, p.Nome, m.Titulo, m.Genero, m.Duracao);
+                            lsvAddMusica(m.Artista, getPlaylists(m, p.IdPlaylist), m.Titulo, m.Genero, m.Duracao);
                         }
                 }
             else
                 foreach (Musica m in iNETE.musicas)
-                    lsvAddMusica(m.Artista, "to do", m.Titulo, m.Genero, m.Duracao);
+                    lsvAddMusica(m.Artista, getPlaylists(m, -1), m.Titulo, m.Genero, m.Duracao);
         }
 
         private void btnNewMusica_Click(object sender, EventArgs e)
         {
-            Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
-            FormAddMusica formNewMusica = new FormAddMusica(p, null);
+            //Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
+            FormAddMusica formNewMusica = new FormAddMusica(iNETE.musicas, null);
 
 
             if (formNewMusica.ShowDialog() == DialogResult.OK)
             {
-                iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas.AddMusica(formNewMusica.Musica);
+                if (lsvPlaylists.SelectedItems.Count != 0)
+                    iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas.AddMusica(formNewMusica.Musica);
                 iNETE.musicas.AddMusica(formNewMusica.Musica);
                 string a = formNewMusica.Musica.Artista;
                 string t = formNewMusica.Musica.Titulo;
                 genero g = formNewMusica.Musica.Genero;
                 int d = formNewMusica.Musica.Duracao;
-                lsvAddMusica(a, p.Nome, t, g, d);
+                lsvAddMusica(a, getPlaylists(formNewMusica.Musica, -1), t, g, d);
                 changes = true;
             }
         }
         private void btnEditMusica_Click(object sender, EventArgs e)
         {
-            if (lsvPlaylists.SelectedItems.Count != 1)
+            if (lsvMusicas.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Selecione apenas uma musica", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nenhuma música selecionada", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
+                //Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
                 string a = lsvMusicas.SelectedItems[0].Text;
                 string t = lsvMusicas.SelectedItems[0].SubItems[2].Text;
-                FormAddMusica formNewMusica = new FormAddMusica(p, p.musicas.tituloToMusica(a, t));
+                FormAddMusica formNewMusica = new FormAddMusica(iNETE.musicas, iNETE.musicas.tituloToMusica(a, t));
 
                 if (formNewMusica.ShowDialog() == DialogResult.OK)
                 {
-                    EditMusica(p.musicas.tituloToMusica(a, t), formNewMusica.Musica);
+                    EditMusica(iNETE.musicas.tituloToMusica(a, t), formNewMusica.Musica);
                     //iNETE.playlists[lsvPlaylists.SelectedIndices[0]].musicas[lsvMusicas.SelectedIndices[0]] = formNewMusica.Musica;
 
                     lsvEditMusica(lsvMusicas.SelectedIndices[0], formNewMusica.Musica.Titulo, formNewMusica.Musica.Genero.ToString(), formNewMusica.Musica.Duracao);
@@ -380,8 +383,36 @@ namespace iNETEapp
                 if (res == DialogResult.Yes)
                 {
 
+                    Playlist p = new Playlist(lsvMusicas.SelectedItems[0].Text + "-Musicas",getId(), DateTime.Today);
+
+                    foreach (Musica m in iNETE.musicas)
+                    {
+                        if (m.Artista == lsvMusicas.SelectedItems[0].Text)
+                            p.musicas.AddMusica(m);
+                    }
+                    iNETE.playlists.AddPlaylist(p);
+                    lsvAddPlaylist(p.IdPlaylist, p.Nome, p.musicas.Count);
                 }
             }
+        }
+
+        private int getId()
+        {
+            int cnt = 0;
+            foreach (Playlist p in iNETE.playlists)
+                if (p.IdPlaylist > cnt)
+                    cnt = p.IdPlaylist;
+            bool[] arr = new bool[cnt+1];
+            foreach (Playlist p in iNETE.playlists)
+            {
+                arr[p.IdPlaylist] = true;
+            }
+            for (int idx= 0; idx < cnt; idx++)
+            {
+                if (arr[idx] == false)
+                    return idx;
+            }
+            return 0;
         }
 
         private void tsiDuracaoGenero_Click(object sender, EventArgs e)
