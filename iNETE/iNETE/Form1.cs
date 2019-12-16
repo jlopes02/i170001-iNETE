@@ -262,7 +262,10 @@ namespace iNETEapp
                 string t = formNewMusica.Musica.Titulo;
                 genero g = formNewMusica.Musica.Genero;
                 int d = formNewMusica.Musica.Duracao;
-                lsvAddMusica(a, getPlaylists(formNewMusica.Musica, -1), t, g, d);
+                int playlist = -1;
+                if (lsvPlaylists.SelectedItems.Count != 0)
+                    playlist = Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag);
+                lsvAddMusica(a, getPlaylists(formNewMusica.Musica, playlist), t, g, d);
                 changes = true;
             }
         }
@@ -383,19 +386,37 @@ namespace iNETEapp
                 if (res == DialogResult.Yes)
                 {
 
-                    Playlist p = new Playlist(lsvMusicas.SelectedItems[0].Text + "-Musicas",getId(), DateTime.Today);
+                    Playlist playlist = new Playlist(lsvMusicas.SelectedItems[0].Text + "-Musicas",getId(), DateTime.Today);
 
                     foreach (Musica m in iNETE.musicas)
                     {
                         if (m.Artista == lsvMusicas.SelectedItems[0].Text)
-                            p.musicas.AddMusica(m);
+                            playlist.musicas.AddMusica(m);
                     }
-                    iNETE.playlists.AddPlaylist(p);
-                    lsvAddPlaylist(p.IdPlaylist, p.Nome, p.musicas.Count);
+                    for(int idx = 0; idx < iNETE.playlists.Count; idx++) // procurar playlist das musicas do artista
+                    {
+                        if (iNETE.playlists[idx].Nome == playlist.Nome)
+                        {
+                            int lsvIdx = 0;
+                            for (; idx < lsvPlaylists.Items.Count ;lsvIdx++)
+                            {
+                                if (lsvPlaylists.Items[lsvIdx].Text == playlist.Nome)
+                                    break;
+                            }
+                            iNETE.playlists[idx].musicas = playlist.musicas;
+                            lsvEditPlaylist(lsvIdx, playlist.Nome, playlist.musicas.Count.ToString());
+                            return;
+                        }
+                    }
+                    iNETE.playlists.AddPlaylist(playlist);
+                    lsvAddPlaylist(playlist.IdPlaylist, playlist.Nome, playlist.musicas.Count);
                 }
             }
         }
-
+        /// <summary>
+        /// Devolve o código de playlist mais baixo disponível
+        /// </summary>
+        /// <returns></returns>
         private int getId()
         {
             int cnt = 0;
