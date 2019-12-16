@@ -94,16 +94,7 @@ namespace iNETEapp
 
             return playlists;
         }
-        private void PlaylistToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tbcControl.SelectedTab = tbcControl.TabPages[0];
-        }
-
-        private void MúsicasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tbcControl.SelectedTab = tbcControl.TabPages[1];
-            lsvMusicas.GridLines = true;
-        }
+        
 
         private void FecharToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -249,14 +240,23 @@ namespace iNETEapp
 
         private void btnNewMusica_Click(object sender, EventArgs e)
         {
-            //Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
-            FormAddMusica formNewMusica = new FormAddMusica(iNETE.musicas, null);
+            MusicCollection musicas;
+            if (lsvPlaylists.SelectedItems.Count != 0)
+            {
+                musicas = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas;
+            }
+            else
+                musicas = iNETE.musicas;
+            FormAddMusica formNewMusica = new FormAddMusica(musicas, null);
 
 
             if (formNewMusica.ShowDialog() == DialogResult.OK)
             {
                 if (lsvPlaylists.SelectedItems.Count != 0)
+                {
                     iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas.AddMusica(formNewMusica.Musica);
+                }
+                if (iNETE.musicas.ContainsMusic(formNewMusica.Musica) == false)
                 iNETE.musicas.AddMusica(formNewMusica.Musica);
                 string a = formNewMusica.Musica.Artista;
                 string t = formNewMusica.Musica.Titulo;
@@ -549,6 +549,150 @@ namespace iNETEapp
                 if (res == DialogResult.Cancel)
                     e.Cancel = true;
             }
+        }
+
+        private void criarPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAddPlaylist formPlaylist = new FormAddPlaylist(iNETE, null);
+
+            if (formPlaylist.ShowDialog() == DialogResult.OK)
+            {
+                iNETE.playlists.AddPlaylist(formPlaylist.Playlist);
+                lsvAddPlaylist(formPlaylist.Playlist.IdPlaylist, formPlaylist.Playlist.Nome, formPlaylist.Playlist.musicas.Count);
+                changes = true;
+            }
+
+
+        }
+
+        private void alterarPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lsvPlaylists.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Nenhuma playlist selecionada", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                FormAddPlaylist formPlaylist = new FormAddPlaylist(iNETE, iNETE.playlists[lsvPlaylists.SelectedIndices[0]]);
+
+                if (formPlaylist.ShowDialog() == DialogResult.OK)
+                {
+                    iNETE.playlists[lsvPlaylists.SelectedIndices[0]] = formPlaylist.Playlist;
+                    lsvEditPlaylist(lsvPlaylists.SelectedIndices[0], formPlaylist.Playlist.Nome, formPlaylist.Playlist.musicas.Count.ToString());
+                    changes = true;
+                }
+            }
+        }
+
+        private void apagarPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lsvPlaylists.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Nenhuma playlist selecionada", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DialogResult res = MessageBox.Show("Quer mesmo apagar a playlist selecionada?", "iNETE", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (res == DialogResult.Cancel)
+                return;
+
+
+            iNETE.playlists.RemovePlaylist(Convert.ToInt32(lsvPlaylists.Items[lsvPlaylists.SelectedIndices[0]].Tag));
+            lsvPlaylists.Items.RemoveAt(lsvPlaylists.SelectedIndices[0]);
+            changes = true;
+        }
+
+        private void tsiInserirMusica_Click(object sender, EventArgs e)
+        {
+            MusicCollection musicas;
+            if (lsvPlaylists.SelectedItems.Count != 0)
+            {
+                musicas = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas;
+            }
+            else
+                musicas = iNETE.musicas;
+            FormAddMusica formNewMusica = new FormAddMusica(musicas, null);
+
+
+            if (formNewMusica.ShowDialog() == DialogResult.OK)
+            {
+                if (lsvPlaylists.SelectedItems.Count != 0)
+                {
+                    iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas.AddMusica(formNewMusica.Musica);
+                }
+                if (iNETE.musicas.ContainsMusic(formNewMusica.Musica) == false)
+                    iNETE.musicas.AddMusica(formNewMusica.Musica);
+                string a = formNewMusica.Musica.Artista;
+                string t = formNewMusica.Musica.Titulo;
+                genero g = formNewMusica.Musica.Genero;
+                int d = formNewMusica.Musica.Duracao;
+                int playlist = -1;
+                if (lsvPlaylists.SelectedItems.Count != 0)
+                    playlist = Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag);
+                lsvAddMusica(a, getPlaylists(formNewMusica.Musica, playlist), t, g, d);
+                changes = true;
+            }
+        }
+
+        private void tsiAlterarMusica_Click(object sender, EventArgs e)
+        {
+            if (lsvMusicas.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Nenhuma música selecionada", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
+                string a = lsvMusicas.SelectedItems[0].Text;
+                string t = lsvMusicas.SelectedItems[0].SubItems[2].Text;
+                FormAddMusica formNewMusica = new FormAddMusica(iNETE.musicas, iNETE.musicas.tituloToMusica(a, t));
+
+                if (formNewMusica.ShowDialog() == DialogResult.OK)
+                {
+                    EditMusica(iNETE.musicas.tituloToMusica(a, t), formNewMusica.Musica);
+                    //iNETE.playlists[lsvPlaylists.SelectedIndices[0]].musicas[lsvMusicas.SelectedIndices[0]] = formNewMusica.Musica;
+
+                    lsvEditMusica(lsvMusicas.SelectedIndices[0], formNewMusica.Musica.Titulo, formNewMusica.Musica.Genero.ToString(), formNewMusica.Musica.Duracao);
+                    changes = true;
+                }
+            }
+        }
+
+        private void tsiApagarMusica_Click(object sender, EventArgs e)
+        {
+            if (lsvMusicas.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Nenhuma música selecionada", "iNETE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DialogResult res = MessageBox.Show("Quer mesmo apagar a(s) musica(s) selecionada(s)?", "iNETE", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                if (res == DialogResult.Cancel)
+                    return;
+
+                //for (int idx = lsvMusicas.SelectedIndices.Count; idx > 0; idx--)
+                //{
+
+                //    iNETE.playlists[lsvPlaylists.SelectedIndices[0]].musicas.RemoveMusicaAt(lsvMusicas.SelectedIndices[idx - 1]);
+                //    lsvMusicas.Items.RemoveAt(lsvMusicas.SelectedIndices[idx - 1]);
+                //}
+                foreach (ListViewItem lvi in lsvMusicas.SelectedItems)
+                {
+                    DeleteMusica(iNETE.musicas.tituloToMusica(lvi.Text, lvi.SubItems[2].Text));
+                    lsvMusicas.Items.Remove(lvi);
+                }
+                changes = true;
+            }
+        }
+
+        private void tsiViewPlaylists_Click(object sender, EventArgs e)
+        {
+            tbcControl.SelectedTab = tbcControl.TabPages[0];
+        }
+
+        private void tsiViewMusicas_Click(object sender, EventArgs e)
+        {
+            tbcControl.SelectedTab = tbcControl.TabPages[1];
         }
     }
 }

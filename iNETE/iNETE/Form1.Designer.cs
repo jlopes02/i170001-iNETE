@@ -51,7 +51,15 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiViewPlaylists = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiCriarPlaylist = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiAlterarPlaylist = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiDeletePlaylist = new System.Windows.Forms.ToolStripMenuItem();
             this.músicasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiViewMusicas = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiInserirMusica = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiAlterarMusica = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiApagarMusica = new System.Windows.Forms.ToolStripMenuItem();
             this.ferramentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiMusicasArtista = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiDuracaoGenero = new System.Windows.Forms.ToolStripMenuItem();
@@ -266,19 +274,83 @@
             // 
             // playlistToolStripMenuItem
             // 
+            this.playlistToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsiViewPlaylists,
+            this.tsiCriarPlaylist,
+            this.tsiAlterarPlaylist,
+            this.tsiDeletePlaylist});
             this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
             this.playlistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.playlistToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.playlistToolStripMenuItem.Text = "Playlist";
-            this.playlistToolStripMenuItem.Click += new System.EventHandler(this.PlaylistToolStripMenuItem_Click);
+            // 
+            // tsiViewPlaylists
+            // 
+            this.tsiViewPlaylists.Name = "tsiViewPlaylists";
+            this.tsiViewPlaylists.Size = new System.Drawing.Size(152, 22);
+            this.tsiViewPlaylists.Text = "Visualizar";
+            this.tsiViewPlaylists.Click += new System.EventHandler(this.tsiViewPlaylists_Click);
+            // 
+            // tsiCriarPlaylist
+            // 
+            this.tsiCriarPlaylist.Name = "tsiCriarPlaylist";
+            this.tsiCriarPlaylist.Size = new System.Drawing.Size(152, 22);
+            this.tsiCriarPlaylist.Text = "Criar Playlist";
+            this.tsiCriarPlaylist.Click += new System.EventHandler(this.criarPlaylistToolStripMenuItem_Click);
+            // 
+            // tsiAlterarPlaylist
+            // 
+            this.tsiAlterarPlaylist.Name = "tsiAlterarPlaylist";
+            this.tsiAlterarPlaylist.Size = new System.Drawing.Size(152, 22);
+            this.tsiAlterarPlaylist.Text = "Alterar Playlist";
+            this.tsiAlterarPlaylist.Click += new System.EventHandler(this.alterarPlaylistToolStripMenuItem_Click);
+            // 
+            // tsiDeletePlaylist
+            // 
+            this.tsiDeletePlaylist.Name = "tsiDeletePlaylist";
+            this.tsiDeletePlaylist.Size = new System.Drawing.Size(152, 22);
+            this.tsiDeletePlaylist.Text = "Apagar Playlist";
+            this.tsiDeletePlaylist.Click += new System.EventHandler(this.apagarPlaylistToolStripMenuItem_Click);
             // 
             // músicasToolStripMenuItem
             // 
+            this.músicasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsiViewMusicas,
+            this.tsiInserirMusica,
+            this.tsiAlterarMusica,
+            this.tsiApagarMusica});
             this.músicasToolStripMenuItem.Name = "músicasToolStripMenuItem";
             this.músicasToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.músicasToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.músicasToolStripMenuItem.Text = "Músicas";
-            this.músicasToolStripMenuItem.Click += new System.EventHandler(this.MúsicasToolStripMenuItem_Click);
+            // 
+            // tsiViewMusicas
+            // 
+            this.tsiViewMusicas.Name = "tsiViewMusicas";
+            this.tsiViewMusicas.Size = new System.Drawing.Size(153, 22);
+            this.tsiViewMusicas.Text = "Visualizar";
+            this.tsiViewMusicas.Click += new System.EventHandler(this.tsiViewMusicas_Click);
+            // 
+            // tsiInserirMusica
+            // 
+            this.tsiInserirMusica.Name = "tsiInserirMusica";
+            this.tsiInserirMusica.Size = new System.Drawing.Size(153, 22);
+            this.tsiInserirMusica.Text = "Inserir Música";
+            this.tsiInserirMusica.Click += new System.EventHandler(this.tsiInserirMusica_Click);
+            // 
+            // tsiAlterarMusica
+            // 
+            this.tsiAlterarMusica.Name = "tsiAlterarMusica";
+            this.tsiAlterarMusica.Size = new System.Drawing.Size(153, 22);
+            this.tsiAlterarMusica.Text = "Alterar Música";
+            this.tsiAlterarMusica.Click += new System.EventHandler(this.tsiAlterarMusica_Click);
+            // 
+            // tsiApagarMusica
+            // 
+            this.tsiApagarMusica.Name = "tsiApagarMusica";
+            this.tsiApagarMusica.Size = new System.Drawing.Size(153, 22);
+            this.tsiApagarMusica.Text = "Apagar Música";
+            this.tsiApagarMusica.Click += new System.EventHandler(this.tsiApagarMusica_Click);
             // 
             // ferramentasToolStripMenuItem
             // 
@@ -313,7 +385,7 @@
             this.Controls.Add(this.tbcControl);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "iNETE";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tbcControl.ResumeLayout(false);
@@ -355,6 +427,14 @@
         private System.Windows.Forms.ColumnHeader chTitulo;
         private System.Windows.Forms.ColumnHeader chGenero;
         private System.Windows.Forms.ColumnHeader chDuration;
+        private System.Windows.Forms.ToolStripMenuItem tsiCriarPlaylist;
+        private System.Windows.Forms.ToolStripMenuItem tsiAlterarPlaylist;
+        private System.Windows.Forms.ToolStripMenuItem tsiDeletePlaylist;
+        private System.Windows.Forms.ToolStripMenuItem tsiInserirMusica;
+        private System.Windows.Forms.ToolStripMenuItem tsiAlterarMusica;
+        private System.Windows.Forms.ToolStripMenuItem tsiApagarMusica;
+        private System.Windows.Forms.ToolStripMenuItem tsiViewPlaylists;
+        private System.Windows.Forms.ToolStripMenuItem tsiViewMusicas;
     }
 }
 

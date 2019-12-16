@@ -12,9 +12,9 @@ namespace iNETEapp
 {
     public partial class FormAddMusica : Form
     {
-        MusicCollection ColMusicas;
+        MusicCollection musicasPlaylist;
         public Musica Musica { get; set; }
-        public FormAddMusica(MusicCollection musicas, Musica musica)
+        public FormAddMusica( MusicCollection musicasPlaylist, Musica musica)
         {
             InitializeComponent();
 
@@ -25,10 +25,9 @@ namespace iNETEapp
                 cbbGenero.Items.Add(((genero)idx).ToString());
             }
 
-            ColMusicas = musicas;
-            
+            this.musicasPlaylist = musicasPlaylist;
             this.Text = "Adicionar Música";
-            if (musica != null)
+            if (musica != null) // editar musica
             {
                 Musica = musica;
                 txtArtista.Text = Musica.Artista;
@@ -44,13 +43,16 @@ namespace iNETEapp
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             string msg = "";
-            if (Musica==null)
-                foreach (Musica m in ColMusicas)
+            if (Musica == null)
+            {
+                foreach (Musica m in musicasPlaylist)
                 {
                     if (txtArtista.Text == m.Artista && txtTitulo.Text == m.Titulo && numDuracao.Value == m.Duracao)
                         msg = "Música repetida";
                 }
-
+                
+            }
+            
             if (string.IsNullOrWhiteSpace(txtArtista.Text))
                 msg = "Campo artista vazio";
             if (string.IsNullOrWhiteSpace(txtTitulo.Text))
