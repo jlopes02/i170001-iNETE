@@ -591,5 +591,17 @@ namespace iNETEapp
                 foreach (Musica m in iNETE.musicas)
                     lsvAddMusica(m.Artista, getPlaylists(m, -1), m.Titulo, m.Genero, m.Duracao);
         }
+
+        private void tsiPlay_Click(object sender, EventArgs e)
+        {
+            if (lsvMusicas.SelectedItems.Count != 0)
+            {
+                Musica m = iNETE.musicas.tituloToMusica(lsvMusicas.SelectedItems[0].Text, lsvMusicas.SelectedItems[0].SubItems[2].Text);
+
+                MusicPlayer mp = new MusicPlayer(m);
+
+                mp.ShowDialog();
+            }
+        }
     }
 }

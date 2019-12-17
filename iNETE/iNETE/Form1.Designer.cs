@@ -59,6 +59,7 @@
             this.ferramentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiMusicasArtista = new System.Windows.Forms.ToolStripMenuItem();
             this.tsiDuracaoGenero = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsiPlay = new System.Windows.Forms.ToolStripMenuItem();
             this.tbcControl.SuspendLayout();
             this.tpPlaylist.SuspendLayout();
             this.tpMusic.SuspendLayout();
@@ -269,7 +270,8 @@
             this.tsiViewMusicas,
             this.tsiInserirMusica,
             this.tsiAlterarMusica,
-            this.tsiApagarMusica});
+            this.tsiApagarMusica,
+            this.tsiPlay});
             this.músicasToolStripMenuItem.Name = "músicasToolStripMenuItem";
             this.músicasToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.músicasToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
@@ -328,6 +330,13 @@
             this.tsiDuracaoGenero.Text = "Duração por género";
             this.tsiDuracaoGenero.Click += new System.EventHandler(this.tsiDuracaoGenero_Click);
             // 
+            // tsiPlay
+            // 
+            this.tsiPlay.Name = "tsiPlay";
+            this.tsiPlay.Size = new System.Drawing.Size(153, 22);
+            this.tsiPlay.Text = "Reproduzir";
+            this.tsiPlay.Click += new System.EventHandler(this.tsiPlay_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +392,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsiViewMusicas;
         private System.Windows.Forms.ComboBox cbbGenero;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem tsiPlay;
     }
 }
 
