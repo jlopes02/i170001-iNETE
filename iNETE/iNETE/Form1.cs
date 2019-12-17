@@ -502,7 +502,7 @@ namespace iNETEapp
                 {
                     iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas.AddMusica(formNewMusica.Musica);
                 }
-                if (iNETE.musicas.ContainsMusic(formNewMusica.Musica) == false)// se a playlist ja contem a musica
+                if (iNETE.musicas.ContainsMusic(formNewMusica.Musica) == false)// se a musica ja existia
                     iNETE.musicas.AddMusica(formNewMusica.Musica);
                 string a = formNewMusica.Musica.Artista;
                 string t = formNewMusica.Musica.Titulo;
@@ -511,8 +511,12 @@ namespace iNETEapp
                 string f = formNewMusica.Musica.FileName;
                 int playlist = -1;
                 if (lsvPlaylists.SelectedItems.Count != 0)
+                {
                     playlist = Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag);
+                    lsvEditPlaylist(lsvPlaylists.SelectedIndices[0], lsvPlaylists.SelectedItems[0].Text, (Convert.ToInt32(lsvPlaylists.SelectedItems[0].SubItems[1].Text) + 1).ToString());
+                }
                 lsvAddMusica(a, getPlaylists(formNewMusica.Musica, playlist), t, g, d);
+                
                 changes = true;
             }
         }
@@ -560,13 +564,24 @@ namespace iNETEapp
 
                 foreach (ListViewItem lvi in lsvMusicas.SelectedItems)
                 {
-                    DeleteMusica(iNETE.musicas.tituloToMusica(lvi.Text, lvi.SubItems[2].Text, Convert.ToInt32(lvi.SubItems[4].Text)));
+                    int idx = lvi.SubItems[4].Text.IndexOf(':');
+                    int min = Convert.ToInt32(lvi.SubItems[4].Text.Substring(0, idx));
+                    int s = Convert.ToInt32(lvi.SubItems[4].Text.Substring(idx + 1, 2));
+                    int d = min * 60 + s;
+                    DeleteMusica(iNETE.musicas.tituloToMusica(lvi.Text, lvi.SubItems[2].Text, d));
                     lsvMusicas.Items.Remove(lvi);
                 }
                 changes = true;
+                UpdateQuantidade();
             }
         }
-
+        private void UpdateQuantidade ()
+        {
+            foreach (ListViewItem lvi in lsvPlaylists.Items)
+            {
+                lvi.SubItems[1].Text = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lvi.Tag)).musicas.Count.ToString();
+            }
+        }
         private void tsiViewPlaylists_Click(object sender, EventArgs e)
         {
             tbcControl.SelectedTab = tbcControl.TabPages[0];

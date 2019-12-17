@@ -1,26 +1,29 @@
 <playlists>
   <playlist id="1" nome="111" dataCriacao="11-2019">
-    <musica idx="1"/>
-    <musica idx="2"/>
-    <musica idx="3"/>
+    <musica idx="1" />
+    <musica idx="2" />
+    <musica idx="3" />
   </playlist>
   <playlist id="2" nome="222" dataCriacao="09-2019">
-    <musica idx="1"/>
-    <musica idx="4"/>
-    <musica idx="5"/>
-    <musica idx="6"/>
+    <musica idx="1" />
+    <musica idx="4" />
+    <musica idx="5" />
+    <musica idx="6" />
   </playlist>
   <playlist id="3" nome="333" dataCriacao="10-2019">
-    <musica idx="7"/>
-    <musica idx="8"/>
-    <musica idx="9"/>
+    <musica idx="7" />
+    <musica idx="8" />
+    <musica idx="9" />
   </playlist>
   <playlist id="6" nome="ola" dataCriacao="10-2019">
-    <musica idx="0"/>
-    <musica idx="10"/>
-    <musica idx="11"/>
+    <musica idx="0" />
+    <musica idx="10" />
+    <musica idx="11" />
   </playlist>
   <playlist id="45" nome="safda" dataCriacao="12-2019">
-    <musica idx="1"/>
+    <musica idx="1" />
+  </playlist>
+  <playlist id="7" nome="playlistNova" dataCriacao="12-2019">
+    <musica idx="14" />
   </playlist>
 </playlists>
