@@ -28,8 +28,8 @@ namespace iNETEapp
                 string t = m.Attributes[1].Value;
                 genero g = (genero)Enum.Parse(typeof(genero), m.Attributes[2].Value);
                 int s = Convert.ToInt32(m.Attributes[3].Value);
-
-                Musica musica = new Musica(t, a, s, g);
+                string f = m.Attributes[4].Value;
+                Musica musica = new Musica(t, a, s, g, f);
                 iNETE.musicas.AddMusica(musica);
 
 
@@ -94,7 +94,7 @@ namespace iNETEapp
 
             return playlists;
         }
-        
+
 
         private void FecharToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -174,8 +174,8 @@ namespace iNETEapp
             int min = duracao / 60;
             lsvMusicas.Items[idx].SubItems[4].Text = min.ToString() + ":" + (duracao - min * 60).ToString("00");
         }
-        
-        
+
+
 
         private void lsvPlaylists_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -195,7 +195,7 @@ namespace iNETEapp
                     lsvAddMusica(m.Artista, getPlaylists(m, -1), m.Titulo, m.Genero, m.Duracao);
         }
 
-        
+
         private void EditMusica(Musica musica, Musica newMusica)
         {
             foreach (Playlist p in iNETE.playlists)
@@ -224,7 +224,7 @@ namespace iNETEapp
                 }
             }
         }
-        
+
         private void DeleteMusica(Musica musica)
         {
             foreach (Playlist p in iNETE.playlists)
@@ -265,19 +265,19 @@ namespace iNETEapp
                 if (res == DialogResult.Yes)
                 {
 
-                    Playlist playlist = new Playlist(lsvMusicas.SelectedItems[0].Text + "-Musicas",getId(), DateTime.Today);
+                    Playlist playlist = new Playlist(lsvMusicas.SelectedItems[0].Text + "-Musicas", getId(), DateTime.Today);
 
                     foreach (Musica m in iNETE.musicas)
                     {
                         if (m.Artista == lsvMusicas.SelectedItems[0].Text)
                             playlist.musicas.AddMusica(m);
                     }
-                    for(int idx = 0; idx < iNETE.playlists.Count; idx++) // procurar playlist das musicas do artista
+                    for (int idx = 0; idx < iNETE.playlists.Count; idx++) // procurar playlist das musicas do artista
                     {
                         if (iNETE.playlists[idx].Nome == playlist.Nome)
                         {
                             int lsvIdx = 0;
-                            for (; idx < lsvPlaylists.Items.Count ;lsvIdx++)
+                            for (; idx < lsvPlaylists.Items.Count; lsvIdx++)
                             {
                                 if (lsvPlaylists.Items[lsvIdx].Text == playlist.Nome)
                                     break;
@@ -302,12 +302,12 @@ namespace iNETEapp
             foreach (Playlist p in iNETE.playlists)
                 if (p.IdPlaylist > cnt)
                     cnt = p.IdPlaylist;
-            bool[] arr = new bool[cnt+1];
+            bool[] arr = new bool[cnt + 1];
             foreach (Playlist p in iNETE.playlists)
             {
                 arr[p.IdPlaylist] = true;
             }
-            for (int idx= 0; idx < cnt; idx++)
+            for (int idx = 0; idx < cnt; idx++)
             {
                 if (arr[idx] == false)
                     return idx;
@@ -385,7 +385,7 @@ namespace iNETEapp
 
                 mainNode.AppendChild(playlist);
             }
-            doc.Save("..\\..\\playlistsTeste.xml");
+            doc.Save("..\\..\\playlists.xml");
             doc = new XmlDocument();
             mainNode = doc.CreateElement("musicas");
             doc.AppendChild(mainNode);
@@ -405,14 +405,17 @@ namespace iNETEapp
                 XmlAttribute duracao = doc.CreateAttribute("duracao");
                 duracao.InnerXml = m.Duracao.ToString();
 
+                XmlAttribute file = doc.CreateAttribute("file");
+                file.InnerXml = m.FileName;
+
                 musica.Attributes.Append(artista);
                 musica.Attributes.Append(titulo);
                 musica.Attributes.Append(genero);
                 musica.Attributes.Append(duracao);
-
+                musica.Attributes.Append(file);
                 mainNode.AppendChild(musica);
             }
-            doc.Save("..\\..\\musicasTeste.xml");
+            doc.Save("..\\..\\musicas.xml");
             changes = false;
         }
 
@@ -499,12 +502,13 @@ namespace iNETEapp
                 {
                     iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag)).musicas.AddMusica(formNewMusica.Musica);
                 }
-                if (iNETE.musicas.ContainsMusic(formNewMusica.Musica) == false)
+                if (iNETE.musicas.ContainsMusic(formNewMusica.Musica) == false)// se a playlist ja contem a musica
                     iNETE.musicas.AddMusica(formNewMusica.Musica);
                 string a = formNewMusica.Musica.Artista;
                 string t = formNewMusica.Musica.Titulo;
                 genero g = formNewMusica.Musica.Genero;
                 int d = formNewMusica.Musica.Duracao;
+                string f = formNewMusica.Musica.FileName;
                 int playlist = -1;
                 if (lsvPlaylists.SelectedItems.Count != 0)
                     playlist = Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag);
@@ -521,15 +525,19 @@ namespace iNETEapp
             }
             else
             {
-                //Playlist p = iNETE.playlists.CodeToPlaylist(Convert.ToInt32(lsvPlaylists.SelectedItems[0].Tag));
+
                 string a = lsvMusicas.SelectedItems[0].Text;
                 string t = lsvMusicas.SelectedItems[0].SubItems[2].Text;
-                FormAddMusica formNewMusica = new FormAddMusica(iNETE.musicas, iNETE.musicas.tituloToMusica(a, t));
+                int idx = lsvMusicas.SelectedItems[0].SubItems[4].Text.IndexOf(':');
+                int m = Convert.ToInt32(lsvMusicas.SelectedItems[0].SubItems[4].Text.Substring(0, idx));
+                int s = Convert.ToInt32(lsvMusicas.SelectedItems[0].SubItems[4].Text.Substring(idx+1, 2));
+                int d = m*60 + s;
+                FormAddMusica formNewMusica = new FormAddMusica(iNETE.musicas, iNETE.musicas.tituloToMusica(a, t, d));
 
                 if (formNewMusica.ShowDialog() == DialogResult.OK)
                 {
-                    EditMusica(iNETE.musicas.tituloToMusica(a, t), formNewMusica.Musica);
-                    //iNETE.playlists[lsvPlaylists.SelectedIndices[0]].musicas[lsvMusicas.SelectedIndices[0]] = formNewMusica.Musica;
+                    EditMusica(iNETE.musicas.tituloToMusica(a, t,d), formNewMusica.Musica);
+
 
                     lsvEditMusica(lsvMusicas.SelectedIndices[0], formNewMusica.Musica.Titulo, formNewMusica.Musica.Genero.ToString(), formNewMusica.Musica.Duracao);
                     changes = true;
@@ -549,15 +557,10 @@ namespace iNETEapp
                 if (res == DialogResult.Cancel)
                     return;
 
-                //for (int idx = lsvMusicas.SelectedIndices.Count; idx > 0; idx--)
-                //{
 
-                //    iNETE.playlists[lsvPlaylists.SelectedIndices[0]].musicas.RemoveMusicaAt(lsvMusicas.SelectedIndices[idx - 1]);
-                //    lsvMusicas.Items.RemoveAt(lsvMusicas.SelectedIndices[idx - 1]);
-                //}
                 foreach (ListViewItem lvi in lsvMusicas.SelectedItems)
                 {
-                    DeleteMusica(iNETE.musicas.tituloToMusica(lvi.Text, lvi.SubItems[2].Text));
+                    DeleteMusica(iNETE.musicas.tituloToMusica(lvi.Text, lvi.SubItems[2].Text, Convert.ToInt32(lvi.SubItems[4].Text)));
                     lsvMusicas.Items.Remove(lvi);
                 }
                 changes = true;
@@ -596,7 +599,11 @@ namespace iNETEapp
         {
             if (lsvMusicas.SelectedItems.Count != 0)
             {
-                Musica m = iNETE.musicas.tituloToMusica(lsvMusicas.SelectedItems[0].Text, lsvMusicas.SelectedItems[0].SubItems[2].Text);
+                int idx = lsvMusicas.SelectedItems[0].SubItems[4].Text.IndexOf(':');
+                int min = Convert.ToInt32(lsvMusicas.SelectedItems[0].SubItems[4].Text.Substring(0, idx));
+                int s = Convert.ToInt32(lsvMusicas.SelectedItems[0].SubItems[4].Text.Substring(idx + 1, 2));
+                int d = min * 60 + s;
+                Musica m = iNETE.musicas.tituloToMusica(lsvMusicas.SelectedItems[0].Text, lsvMusicas.SelectedItems[0].SubItems[2].Text, d);
 
                 MusicPlayer mp = new MusicPlayer(m);
 

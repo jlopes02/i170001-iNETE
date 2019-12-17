@@ -28,7 +28,12 @@ namespace PSI10_iNETE
         {
             return InnerList.Contains(musica);
         }
-        public bool ContainsMusic (Musica musica)
+        /// <summary>
+        /// Devolve um booleano dependendo se existe uma musica na coleção com os parâmetros artista/titulo/duracao especificados
+        /// </summary>
+        /// <param name="musica"></param>
+        /// <returns></returns>
+        public bool ContainsMusic (Musica musica) 
         {
             foreach (Musica m in this.List)
             {
@@ -37,11 +42,12 @@ namespace PSI10_iNETE
             }
             return false;
         }
-        public Musica tituloToMusica (string artista, string titulo)
+
+        public Musica tituloToMusica (string artista, string titulo, int duracao)
         {
             foreach (Musica m in this.InnerList)
             {
-                if (m.Artista == artista && m.Titulo == titulo)
+                if (m.Artista == artista && m.Titulo == titulo && m.Duracao == duracao)
                     return m;
             }
             return null;

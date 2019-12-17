@@ -37,6 +37,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
+            this.txtFile = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numDuracao)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,7 +115,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(405, 79);
+            this.btnConfirm.Location = new System.Drawing.Point(540, 79);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 23);
             this.btnConfirm.TabIndex = 8;
@@ -121,11 +123,29 @@
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
+            // txtFile
+            // 
+            this.txtFile.Location = new System.Drawing.Point(483, 43);
+            this.txtFile.Name = "txtFile";
+            this.txtFile.Size = new System.Drawing.Size(132, 20);
+            this.txtFile.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(480, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Ficheiro";
+            // 
             // FormAddMusica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 114);
+            this.ClientSize = new System.Drawing.Size(627, 114);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtFile);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -155,5 +175,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.TextBox txtFile;
+        private System.Windows.Forms.Label label5;
     }
 }

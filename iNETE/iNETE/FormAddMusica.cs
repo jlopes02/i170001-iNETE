@@ -35,6 +35,7 @@ namespace iNETEapp
                 txtTitulo.Text = Musica.Titulo;
                 cbbGenero.Text= Musica.Genero.ToString();
                 numDuracao.Value = Musica.Duracao;
+                txtFile.Text = Musica.FileName;
                 this.Text = "Alterar Música";
             }
         }
@@ -71,13 +72,14 @@ namespace iNETEapp
                 DialogResult = DialogResult.OK;
                 if (Musica == null)
                 {
-                    Musica = new Musica(txtTitulo.Text, txtArtista.Text, (int)numDuracao.Value, (genero)cbbGenero.SelectedIndex);
+                    Musica = new Musica(txtTitulo.Text, txtArtista.Text, (int)numDuracao.Value, (genero)cbbGenero.SelectedIndex, txtFile.Text);
                 }
                 else
                 {
                     Musica.Titulo = txtTitulo.Text;
                     Musica.Genero = (genero)cbbGenero.SelectedIndex;
                     Musica.Duracao = (int)numDuracao.Value;
+                    Musica.FileName = txtFile.Text;
                 }
             }
         }

@@ -9,16 +9,17 @@ namespace PSI10_iNETE
     public class Musica
     {
 
-        private string titulo, artista;
+        private string titulo, artista, fileName;
         private genero genero;
         private int duracao;
 
-        public Musica(string _titulo, string _artista, int s, genero _genero)
+        public Musica(string _titulo, string _artista, int s, genero _genero, string _fileName)
         {
             Titulo = _titulo;
             Artista = _artista;
             Duracao = s;
             Genero = _genero;
+            FileName = _fileName;
         }
 
         public string Titulo
@@ -54,7 +55,7 @@ namespace PSI10_iNETE
             get { return duracao; }
         }
 
-        
+        public string FileName { set; get; }
     }
 
 }

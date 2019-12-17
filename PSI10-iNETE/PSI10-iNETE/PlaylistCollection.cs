@@ -22,6 +22,11 @@ namespace PSI10_iNETE
         {
             List.RemoveAt(idx);
         }
+        /// <summary>
+        /// Devolve a playlist com o idPlaylist especificado
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public Playlist CodeToPlaylist(int code)
         {
             for (int idx = 0; idx < this.Count; idx++)

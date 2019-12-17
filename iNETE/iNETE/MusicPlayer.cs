@@ -17,14 +17,14 @@ namespace iNETEapp
         public MusicPlayer(Musica m)
         {
             InitializeComponent();
-            wmp = new WindowsMediaPlayer();
-            //string exePath = System.IO.Path.GetDirectoryName(
-            //System.Reflection.Assembly.GetEntryAssembly().Location);
-
+             lblArtista.Text = m.Artista;
+            lblTitulo.Text = m.Titulo;
+            lblGenero.Text = m.Genero.ToString();
             string path = System.IO.Directory.GetParent(System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString()).ToString();
-            wmp.URL = path + "/musicas/Kalimba.mp3";
+            wmp = new WindowsMediaPlayer();
+            wmp.URL = path + "/musicas/" + m.FileName;
         }
-
+       
         private void btnPlay_Click(object sender, EventArgs e)
         {
             wmp.controls.play();
@@ -33,12 +33,18 @@ namespace iNETEapp
         private void btnPause_Click(object sender, EventArgs e)
         {
             wmp.controls.pause();
-            wmp.settings.volume = 50;
         }
 
         private void MusicPlayer_FormClosing(object sender, FormClosingEventArgs e)
         {
             wmp.close();
         }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            wmp.settings.volume = tcbVolume.Value;
+        }
+
+
     }
 }
