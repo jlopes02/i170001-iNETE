@@ -19,7 +19,7 @@ namespace iNETEapp
             InitializeComponent();
 
             // preencher combo box com os generos
-            genero g;
+            
             for (int idx = 0; idx < Enum.GetNames(typeof(genero)).Count(); idx++)
             {
                 cbbGenero.Items.Add(((genero)idx).ToString());

@@ -30,16 +30,12 @@
         {
             this.tbcControl = new System.Windows.Forms.TabControl();
             this.tpPlaylist = new System.Windows.Forms.TabPage();
-            this.btnDeletePlaylist = new System.Windows.Forms.Button();
-            this.btnEditPlaylist = new System.Windows.Forms.Button();
-            this.btnNewPlaylist = new System.Windows.Forms.Button();
             this.lsvPlaylists = new System.Windows.Forms.ListView();
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chQtd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpMusic = new System.Windows.Forms.TabPage();
-            this.btnDeleteMusica = new System.Windows.Forms.Button();
-            this.btnEditMusica = new System.Windows.Forms.Button();
-            this.btnNewMusica = new System.Windows.Forms.Button();
+            this.cbbGenero = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.lsvMusicas = new System.Windows.Forms.ListView();
             this.chArtista = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chPlaylist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -78,53 +74,20 @@
             this.tbcControl.Location = new System.Drawing.Point(12, 27);
             this.tbcControl.Name = "tbcControl";
             this.tbcControl.SelectedIndex = 0;
-            this.tbcControl.Size = new System.Drawing.Size(731, 411);
+            this.tbcControl.Size = new System.Drawing.Size(860, 411);
             this.tbcControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tbcControl.TabIndex = 0;
             // 
             // tpPlaylist
             // 
-            this.tpPlaylist.Controls.Add(this.btnDeletePlaylist);
-            this.tpPlaylist.Controls.Add(this.btnEditPlaylist);
-            this.tpPlaylist.Controls.Add(this.btnNewPlaylist);
             this.tpPlaylist.Controls.Add(this.lsvPlaylists);
             this.tpPlaylist.Location = new System.Drawing.Point(4, 5);
             this.tpPlaylist.Name = "tpPlaylist";
             this.tpPlaylist.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPlaylist.Size = new System.Drawing.Size(723, 402);
+            this.tpPlaylist.Size = new System.Drawing.Size(852, 402);
             this.tpPlaylist.TabIndex = 1;
             this.tpPlaylist.Text = "Playlist";
             this.tpPlaylist.UseVisualStyleBackColor = true;
-            // 
-            // btnDeletePlaylist
-            // 
-            this.btnDeletePlaylist.Location = new System.Drawing.Point(599, 120);
-            this.btnDeletePlaylist.Name = "btnDeletePlaylist";
-            this.btnDeletePlaylist.Size = new System.Drawing.Size(118, 23);
-            this.btnDeletePlaylist.TabIndex = 3;
-            this.btnDeletePlaylist.Text = "Apagar Playlist";
-            this.btnDeletePlaylist.UseVisualStyleBackColor = true;
-            this.btnDeletePlaylist.Click += new System.EventHandler(this.btnDeletePlaylist_Click);
-            // 
-            // btnEditPlaylist
-            // 
-            this.btnEditPlaylist.Location = new System.Drawing.Point(599, 70);
-            this.btnEditPlaylist.Name = "btnEditPlaylist";
-            this.btnEditPlaylist.Size = new System.Drawing.Size(118, 23);
-            this.btnEditPlaylist.TabIndex = 2;
-            this.btnEditPlaylist.Text = "Alterar Playlist";
-            this.btnEditPlaylist.UseVisualStyleBackColor = true;
-            this.btnEditPlaylist.Click += new System.EventHandler(this.btnEditPlaylist_Click);
-            // 
-            // btnNewPlaylist
-            // 
-            this.btnNewPlaylist.Location = new System.Drawing.Point(599, 20);
-            this.btnNewPlaylist.Name = "btnNewPlaylist";
-            this.btnNewPlaylist.Size = new System.Drawing.Size(118, 23);
-            this.btnNewPlaylist.TabIndex = 1;
-            this.btnNewPlaylist.Text = "Criar Playlist";
-            this.btnNewPlaylist.UseVisualStyleBackColor = true;
-            this.btnNewPlaylist.Click += new System.EventHandler(this.BtnNewPlaylist_Click);
             // 
             // lsvPlaylists
             // 
@@ -132,10 +95,10 @@
             this.chName,
             this.chQtd});
             this.lsvPlaylists.HideSelection = false;
-            this.lsvPlaylists.Location = new System.Drawing.Point(6, 6);
+            this.lsvPlaylists.Location = new System.Drawing.Point(-4, 3);
             this.lsvPlaylists.MultiSelect = false;
             this.lsvPlaylists.Name = "lsvPlaylists";
-            this.lsvPlaylists.Size = new System.Drawing.Size(580, 366);
+            this.lsvPlaylists.Size = new System.Drawing.Size(840, 390);
             this.lsvPlaylists.TabIndex = 0;
             this.lsvPlaylists.UseCompatibleStateImageBehavior = false;
             this.lsvPlaylists.View = System.Windows.Forms.View.Details;
@@ -153,46 +116,33 @@
             // 
             // tpMusic
             // 
-            this.tpMusic.Controls.Add(this.btnDeleteMusica);
-            this.tpMusic.Controls.Add(this.btnEditMusica);
-            this.tpMusic.Controls.Add(this.btnNewMusica);
+            this.tpMusic.Controls.Add(this.cbbGenero);
+            this.tpMusic.Controls.Add(this.label1);
             this.tpMusic.Controls.Add(this.lsvMusicas);
             this.tpMusic.Location = new System.Drawing.Point(4, 5);
             this.tpMusic.Name = "tpMusic";
-            this.tpMusic.Size = new System.Drawing.Size(723, 402);
+            this.tpMusic.Size = new System.Drawing.Size(852, 402);
             this.tpMusic.TabIndex = 2;
             this.tpMusic.Text = "Músicas";
             this.tpMusic.UseVisualStyleBackColor = true;
             // 
-            // btnDeleteMusica
+            // cbbGenero
             // 
-            this.btnDeleteMusica.Location = new System.Drawing.Point(599, 120);
-            this.btnDeleteMusica.Name = "btnDeleteMusica";
-            this.btnDeleteMusica.Size = new System.Drawing.Size(118, 23);
-            this.btnDeleteMusica.TabIndex = 6;
-            this.btnDeleteMusica.Text = "Apagar Música";
-            this.btnDeleteMusica.UseVisualStyleBackColor = true;
-            this.btnDeleteMusica.Click += new System.EventHandler(this.btnDeleteMusica_Click);
+            this.cbbGenero.FormattingEnabled = true;
+            this.cbbGenero.Location = new System.Drawing.Point(717, 29);
+            this.cbbGenero.Name = "cbbGenero";
+            this.cbbGenero.Size = new System.Drawing.Size(121, 21);
+            this.cbbGenero.TabIndex = 2;
+            this.cbbGenero.TextChanged += new System.EventHandler(this.cbbGenero_TextChanged);
             // 
-            // btnEditMusica
+            // label1
             // 
-            this.btnEditMusica.Location = new System.Drawing.Point(599, 70);
-            this.btnEditMusica.Name = "btnEditMusica";
-            this.btnEditMusica.Size = new System.Drawing.Size(118, 23);
-            this.btnEditMusica.TabIndex = 5;
-            this.btnEditMusica.Text = "Alterar Música";
-            this.btnEditMusica.UseVisualStyleBackColor = true;
-            this.btnEditMusica.Click += new System.EventHandler(this.btnEditMusica_Click);
-            // 
-            // btnNewMusica
-            // 
-            this.btnNewMusica.Location = new System.Drawing.Point(599, 20);
-            this.btnNewMusica.Name = "btnNewMusica";
-            this.btnNewMusica.Size = new System.Drawing.Size(118, 23);
-            this.btnNewMusica.TabIndex = 4;
-            this.btnNewMusica.Text = "Inserir Música";
-            this.btnNewMusica.UseVisualStyleBackColor = true;
-            this.btnNewMusica.Click += new System.EventHandler(this.btnNewMusica_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(717, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Filtrar por género";
             // 
             // lsvMusicas
             // 
@@ -203,9 +153,9 @@
             this.chGenero,
             this.chDuration});
             this.lsvMusicas.HideSelection = false;
-            this.lsvMusicas.Location = new System.Drawing.Point(6, 6);
+            this.lsvMusicas.Location = new System.Drawing.Point(-4, 3);
             this.lsvMusicas.Name = "lsvMusicas";
-            this.lsvMusicas.Size = new System.Drawing.Size(580, 366);
+            this.lsvMusicas.Size = new System.Drawing.Size(715, 393);
             this.lsvMusicas.TabIndex = 0;
             this.lsvMusicas.UseCompatibleStateImageBehavior = false;
             this.lsvMusicas.View = System.Windows.Forms.View.Details;
@@ -218,21 +168,22 @@
             // chPlaylist
             // 
             this.chPlaylist.Text = "Playlist";
-            this.chPlaylist.Width = 109;
+            this.chPlaylist.Width = 170;
             // 
             // chTitulo
             // 
             this.chTitulo.Text = "Título";
-            this.chTitulo.Width = 142;
+            this.chTitulo.Width = 174;
             // 
             // chGenero
             // 
             this.chGenero.Text = "Género";
-            this.chGenero.Width = 117;
+            this.chGenero.Width = 147;
             // 
             // chDuration
             // 
             this.chDuration.Text = "Duração";
+            this.chDuration.Width = 70;
             // 
             // menuStrip1
             // 
@@ -243,7 +194,7 @@
             this.ferramentasToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(755, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(884, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -381,7 +332,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 435);
+            this.ClientSize = new System.Drawing.Size(884, 448);
             this.Controls.Add(this.tbcControl);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
@@ -391,6 +342,7 @@
             this.tbcControl.ResumeLayout(false);
             this.tpPlaylist.ResumeLayout(false);
             this.tpMusic.ResumeLayout(false);
+            this.tpMusic.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -412,15 +364,9 @@
         private System.Windows.Forms.ToolStripMenuItem ferramentasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsiMusicasArtista;
         private System.Windows.Forms.ToolStripMenuItem tsiDuracaoGenero;
-        private System.Windows.Forms.Button btnDeletePlaylist;
-        private System.Windows.Forms.Button btnEditPlaylist;
-        private System.Windows.Forms.Button btnNewPlaylist;
         private System.Windows.Forms.ListView lsvPlaylists;
         private System.Windows.Forms.ColumnHeader chName;
         private System.Windows.Forms.ColumnHeader chQtd;
-        private System.Windows.Forms.Button btnDeleteMusica;
-        private System.Windows.Forms.Button btnEditMusica;
-        private System.Windows.Forms.Button btnNewMusica;
         private System.Windows.Forms.ListView lsvMusicas;
         private System.Windows.Forms.ColumnHeader chArtista;
         private System.Windows.Forms.ColumnHeader chPlaylist;
@@ -435,6 +381,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsiApagarMusica;
         private System.Windows.Forms.ToolStripMenuItem tsiViewPlaylists;
         private System.Windows.Forms.ToolStripMenuItem tsiViewMusicas;
+        private System.Windows.Forms.ComboBox cbbGenero;
+        private System.Windows.Forms.Label label1;
     }
 }
 
